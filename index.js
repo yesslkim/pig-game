@@ -40,3 +40,30 @@ const gameBoard = {
 		this.players[this.currentPlayerIdx].totalScore = 0;
 	},
 };
+
+const BTN_RESTART = 'btn-restart';
+const BTN_ROLL = 'btn-roll';
+const BTN_HOLD = 'btn-hold';
+
+const handleGameButtons = e => {
+	if (e.target.tagName !== 'BUTTON') return;
+	switch (e.target.className) {
+		case BTN_RESTART: {
+			console.log(BTN_RESTART);
+			return;
+		}
+		case BTN_ROLL: {
+			console.log(BTN_ROLL);
+			return;
+		}
+		case BTN_HOLD: {
+			console.log(BTN_HOLD);
+			return;
+		}
+		default:
+			return;
+	}
+};
+
+const btnWrapper = document.querySelector('.assets');
+btnWrapper.addEventListener('click', handleGameButtons);
