@@ -1,79 +1,49 @@
-// GAME
-const gameBoard = {
-	currentPlayerIdx: 0,
-	players: [
-		{
-			name: 'player1',
-			totalScore: 0,
-			currentScore: 0,
-		},
-		{
-			name: 'player2',
-			totalScore: 0,
-			currentScore: 0,
-		},
-	],
+// GAME ELEMENTS
+const player1 = document.querySelector('.player1');
+const player2 = document.querySelector('.player2');
+let targetElem = player1;
+let totalScoreElem = targetElem.querySelector('.score-total .score');
+let currentScoreElem = targetElem.querySelector('.score-current .score');
 
-	changeCurrentPlayer() {
-		if (this.currentPlayerIdx > 0) {
-			this.currentPlayerIdx = 0;
-		} else {
-			this.currentPlayerIdx = 1;
-		}
-	},
+const getScore = targetElem => Number(targetElem.textContent);
 
-	getCurrentPlayer() {
-		return this.players[this.currentPlayerIdx];
-	},
-
-	updateCurrentScore(diceNum) {
-		this.players[this.currentPlayerIdx].currentScore += diceNum;
-	},
-
-	updateTotalScore() {
-		this.players[this.currentPlayerIdx].totalScore +=
-			this.players[this.currentPlayerIdx].currentScore;
-	},
-
-	resetCurrentScore() {
-		this.players[this.currentPlayerIdx].currentScore = 0;
-	},
-
-	resetAllScore() {
-		this.resetCurrentScore();
-		this.players[this.currentPlayerIdx].totalScore = 0;
-	},
+// METHOD
+const updateCurrentScore = diceNum => {
+	const currentScore = getScore(currentScoreElem);
+	currentScoreElem.textContent = currentScore + diceNum;
 };
 
-const getCurrentPlayerTag = () => {
-	const currentPlayerClassName =
-		gameBoard.players[gameBoard.currentPlayerIdx].name;
-	const currentPlayer = document.querySelector(currentPlayerClassName);
-	return currentPlayer;
+const updateTotalScore = () => {
+	const currentScore = getScore(currentScoreElem);
+	const totalScore = getScore(totalScoreElem);
+	totalScoreElem.textContent = totalScore + currentScore;
 };
 
-const resetPlayerClassName = () => {
-	const currentPlayer = getCurrentPlayerTag();
-	currentPlayer.classList.remove(['active', 'win']);
-};
-
-const setPlayerClassName = className => {
-	const currentPlayer = getCurrentPlayerTag();
-	resetPlayerClassName();
-	currentPlayer.classList.add(className);
-};
-
-const setPlayerScore = diceNum => {
-	if (diceNum > 2) {
-		gameBoard.updateCurrentScore(diceNum);
-	} else {
-		gameBoard.resetAllScore();
-		gameBoard.changeCurrentPlayer();
-	}
-};
-
-const getRandomDiceNumber = () => {
+const getRanDomDiceNumber = () => {
 	return Math.ceil(Math.random() * 6);
+};
+
+const resetScores = () => {
+	totalScoreElem.textContent = 0;
+	currentScoreElem.textContent = 0;
+};
+
+const changeCurrentPlayer = () => {
+	targetElem = targetElem.classList.contains('player1') ? player2 : player1;
+	totalScoreElem = targetElem.querySelector('.score-total .score');
+	currentScoreElem = targetElem.querySelector('.score-current .score');
+};
+
+// BTNS
+const handleBtnRoll = () => {
+	const diceNum = getRanDomDiceNumber();
+
+	if (diceNum > 2) {
+		updateCurrentScore(diceNum, currentScoreElem);
+	} else {
+		resetScores(totalScoreElem, currentScoreElem);
+		changeCurrentPlayer(totalScoreElem);
+	}
 };
 
 const BTN_RESTART = 'btn-restart';
@@ -84,23 +54,13 @@ const handleGameButtons = e => {
 	if (e.target.tagName !== 'BUTTON') return;
 	switch (e.target.className) {
 		case BTN_RESTART: {
-			gameBoard.resetAllScore();
-			resetPlayerClassName();
 			return;
 		}
 		case BTN_ROLL: {
-			const diceNum = getRandomDiceNumber();
-			setPlayerScore(diceNum);
+			handleBtnRoll();
 			return;
 		}
 		case BTN_HOLD: {
-			const currentPlayerScore = gameBoard.getCurrentPlayer().currentScore;
-			if (currentPlayerScore >= 50) {
-				setPlayerClassName('win');
-			} else {
-				gameBoard.resetCurrentScore();
-				gameBoard.changeCurrentPlayer();
-			}
 			return;
 		}
 		default:
