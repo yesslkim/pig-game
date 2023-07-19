@@ -39,7 +39,6 @@ const getRanDomDiceNumber = () => {
 const resetScores = () => {
 	totalScoreElem.textContent = 0;
 	currentScoreElem.textContent = 0;
-	document.querySelectorAll('.score').forEach(score => (score.textContent = 0));
 };
 
 const resetPlayer = () => {
@@ -63,6 +62,7 @@ const changeCurrentPlayer = () => {
 const handleBtnRestart = () => {
 	resetScores();
 	resetPlayer();
+	document.querySelectorAll('.score').forEach(score => (score.textContent = 0));
 	btnElems.forEach(button => button.removeAttribute('disabled'));
 };
 
