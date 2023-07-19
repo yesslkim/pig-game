@@ -1,0 +1,219 @@
+@font-face {
+	font-family: 'MabinogiClassicR';
+	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2207-01@1.0/MabinogiClassicR.woff2')
+		format('woff2');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/* RESET */
+body,
+button {
+	font-family: 'MabinogiClassicR';
+}
+
+body,
+main,
+section,
+div,
+strong,
+span,
+button {
+	box-sizing: border-box;
+}
+
+button {
+	background-color: transparent;
+	border: none;
+	cursor: pointer;
+}
+
+body {
+	background-color: #eee;
+}
+
+h2,
+h3 {
+	font-weight: 400;
+}
+
+.sr-only {
+	position: absolute;
+	margin: -1px;
+	overflow: hidden;
+	width: 1px;
+	height: 1px;
+	clip: rect(0, 0, 0, 0);
+	font-size: 1px;
+}
+
+/* 주사위 판 */
+
+body {
+	position: relative;
+	width: 100%;
+	height: 100vh;
+}
+
+.game {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 1000px;
+	height: 600px;
+	transform: translate(-50%, -50%);
+}
+
+.board {
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: flex;
+	width: 100%;
+	height: 100%;
+	border-radius: 10px;
+	background-color: #fff;
+	box-shadow: 2px 2px 20px 10px rgba(0, 0, 0, 0.02);
+}
+
+.player {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	width: 50%;
+	height: 100%;
+	padding: 100px 0;
+	transition: background 500ms ease-in;
+}
+
+.player.active {
+	background-color: #dae9ff;
+}
+
+.player.active.win {
+	position: relative;
+	background-color: #fff8bc;
+}
+
+.player.active.win::after {
+	position: absolute;
+	top: -20px;
+	left: 50%;
+	transform: translateX(-50%);
+	font-size: 50px;
+	color: #ffb700;
+	content: 'YOU WIN';
+}
+
+.player strong {
+	display: block;
+	font-weight: 400;
+	text-align: center;
+}
+
+.score-total h2 {
+	text-align: center;
+	font-size: 40px;
+}
+
+.score-total strong {
+	font-size: 40px;
+}
+
+.score-current {
+	width: 200px;
+	padding: 10px 10px 30px;
+	border-radius: 10px;
+	background-color: #151515;
+	color: #fff;
+}
+
+.score-current h3 {
+	font-size: 18px;
+	text-align: center;
+}
+
+.score-current strong {
+	font-size: 20px;
+}
+
+/* 주사위 버튼 */
+
+.assets {
+	position: absolute;
+	left: 50%;
+	top: 0;
+	transform: translateX(-50%);
+}
+
+.assets button {
+	display: block;
+	width: 160px;
+	border: 1px solid #151515;
+	border-radius: 4px;
+	padding: 10px;
+	background-color: #fff;
+	box-shadow: 2px 2px 10px 2px #aaa;
+	font-size: 18px;
+	text-align: center;
+	transition: box-shadow 200ms ease-in-out;
+}
+
+.assets button:not(:disabled):hover {
+	box-shadow: 2px 2px 10px 2px transparent;
+}
+
+.assets button:disabled {
+	position: relative;
+	cursor: default;
+}
+
+.assets button:disabled::after {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: transparent;
+	content: '';
+}
+
+.btn-restart {
+	margin: 40px 0 100px;
+}
+
+.dice {
+	width: 100px;
+	height: 100px;
+	margin: 0 auto 100px;
+	background: url('./images/dice.png') 0 0 / auto no-repeat;
+}
+
+.dice-1 {
+	background-position: 0 0;
+}
+
+.dice-2 {
+	background-position: -100px 0;
+}
+
+.dice-3 {
+	background-position: -200px 0;
+}
+
+.dice-4 {
+	background-position: -300px 0;
+}
+
+.dice-5 {
+	background-position: -400px 0;
+}
+
+.dice-6 {
+	background-position: -500px 0;
+}
+
+.btn-roll {
+	margin-bottom: 20px;
+}
